@@ -1,5 +1,6 @@
 # Load specified SVD and generate peripheral memory maps & structures.
 #@author Thomas Roth <thomas.roth@leveldown.de>, Ryan Pavlik <ryan.pavlik@gmail.com>
+#@runtime PyGhidra
 #@keybinding 
 #@menupath 
 #@toolbar
@@ -77,7 +78,7 @@ def calculate_peripheral_size(peripheral, default_register_size):
 	size = 0
 	for register in peripheral.registers:
 		register_size = default_register_size if not register._size else register._size
-		size = max(size, register.address_offset + register_size/8)
+		size = max(size, register.address_offset + register_size // 8)
 	return size
 
 
@@ -176,7 +177,7 @@ for peripheral in peripherals:
 		register_size = default_register_size if not register._size else register._size
 
 		r_type = UnsignedIntegerDataType()
-		rs = register_size / 8
+		rs = register_size // 8
 		if rs == 1:
 			r_type = ByteDataType()
 		elif rs == 2:
@@ -184,8 +185,8 @@ for peripheral in peripherals:
 		elif rs == 8:
 			r_type = UnsignedLongLongDataType()
 
-		print("\t\t\t{}({}:{})".format(register.name, hex(register.address_offset), hex(register.address_offset + register_size/8)))
-		peripheral_struct.replaceAtOffset(register.address_offset, r_type, register_size/8, register.name, register.description)
+		print("\t\t\t{}({}:{})".format(register.name, hex(register.address_offset), hex(register.address_offset + register_size // 8)))
+		peripheral_struct.replaceAtOffset(register.address_offset, r_type, register_size // 8, register.name, register.description)
 
 
 	addr = space.getAddress(peripheral_start)

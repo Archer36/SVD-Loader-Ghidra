@@ -129,7 +129,7 @@ class SVDParser(object):
         msb = _get_int(field_node, 'msb')
         lsb = _get_int(field_node, 'lsb')
         if bit_range is not None:
-            m = re.search('\[([0-9]+):([0-9]+)\]', bit_range)
+            m = re.search(r'\[([0-9]+):([0-9]+)\]', bit_range)
             bit_offset = int(m.group(2))
             bit_width = 1 + (int(m.group(1)) - int(m.group(2)))
         elif msb is not None:
@@ -443,6 +443,5 @@ class SVDParser(object):
 
 def duplicate_array_of_registers(svdreg):  # expects a SVDRegister which is an array of registers
     assert (svdreg.dim == len(svdreg.dim_index))
-
 
 

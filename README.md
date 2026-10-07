@@ -19,6 +19,14 @@ To add the checked-out Git repository to your Ghidra-Scripts search paths:
 
 The script can be found in the `leveldown security` folder in Ghidra's Script Manager. [More info here.](https://leveldown.de/blog/svd-loader/)
 
+### Ghidra 12+ / PyGhidra
+
+`SVD-Loader.py` declares the PyGhidra runtime and runs with Python 3. Launch
+Ghidra in PyGhidra mode using `support/pyghidraRun`, add the repository
+directory to Ghidra's Script Manager search paths, then run the script from a
+program whose language matches the target MCU. The bundled `cmsis_svd` package
+must remain beside `SVD-Loader.py`.
+
 ## Getting SVDs
 
 - [cmsis-svd contains over 650 SVDs](https://github.com/posborne/cmsis-svd/)

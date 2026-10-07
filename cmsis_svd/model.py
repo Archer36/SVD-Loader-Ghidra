@@ -51,7 +51,7 @@ class SVDJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, SVDElement):
             eldict = {}
-            for k, v in obj.iteritems():
+            for k, v in obj.items():
                 if k in TO_DICT_SKIP_KEYS:
                     continue
                 if k.startswith("_"):
@@ -209,7 +209,7 @@ class SVDRegisterArray(SVDElement):
 
     @property
     def registers(self):
-        for i in xrange(self.dim):
+        for i in range(self.dim):
             reg = SVDRegister(
                 name=self.name % self.dim_indices[i],
                 fields=self._fields,
@@ -426,7 +426,7 @@ class SVDRegisterClusterArray(SVDElement):
 
     @property
     def registers(self):
-        for i in xrange(self.dim):
+        for i in range(self.dim):
             for reg in self._register:
                 yield self.updated_register(reg, self, i)
             for cluster in self._cluster:
