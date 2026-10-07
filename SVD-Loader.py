@@ -123,7 +123,15 @@ print("Generating memory regions...")
 memory_regions = []
 for peripheral in peripherals:
 	start = peripheral.base_address
-	length = peripheral.address_block.offset + peripheral.address_block.size
+	address_block_length = 0
+	if peripheral.address_block:
+		address_block_length = peripheral.address_block.offset + peripheral.address_block.size
+	# Some SVDs declare address blocks that end before their final register.
+	register_length = calculate_peripheral_size(peripheral, default_register_size)
+	length = max(address_block_length, register_length)
+	if length == 0:
+		print("Skipping peripheral with no address block or registers: " + peripheral.name)
+		continue
 	end = peripheral.base_address + length
 
 	memory_regions.append(MemoryRegion(peripheral.name, start, end))
