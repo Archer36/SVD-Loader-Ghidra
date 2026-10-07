@@ -192,12 +192,12 @@ for peripheral in peripherals:
 	addr = space.getAddress(peripheral_start)
 
 
-	dtm.addDataType(peripheral_struct, DataTypeConflictHandler.REPLACE_HANDLER)
+	peripheral_struct = dtm.addDataType(peripheral_struct, DataTypeConflictHandler.REPLACE_HANDLER)
 	symtbl.createLabel(addr,
 					peripheral.name,
 					namespace,
 					SourceType.USER_DEFINED)
 	try:
 		listing.createData(addr, peripheral_struct, False)
-	except:
-		print("\t\tFailed to generate peripheral " + peripheral.name)
+	except Exception as e:
+		print("\t\tFailed to apply peripheral {}: {}".format(peripheral.name, e))
